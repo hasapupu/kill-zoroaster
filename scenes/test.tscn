@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://bu7pvkiv3rhsl"]
+
+[ext_resource type="Script" uid="uid://cq7uk4ohee4mh" path="res://scripts/event_man.gd" id="1_errlg"]
+[ext_resource type="Resource" uid="uid://bikjiq8jtbcj4" path="res://game_scenes/test_scene.tres" id="2_74lek"]
+[ext_resource type="PackedScene" uid="uid://dtuty8iwh0k1a" path="res://scenes/player_chara.tscn" id="2_bl13t"]
+[ext_resource type="PackedScene" uid="uid://taukw46d7qu3" path="res://scenes/test_np_chara.tscn" id="3_iyx0m"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_bl13t"]
+normal = Vector2(-1, 0)
+distance = -3.0
+
+[node name="EventMan" type="Node2D"]
+script = ExtResource("1_errlg")
+default_scene = ExtResource("2_74lek")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="YSort" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Node2D2" parent="YSort" instance=ExtResource("3_iyx0m")]
+position = Vector2(32, 32)
+
+[node name="Node2D" parent="YSort" instance=ExtResource("2_bl13t")]
+
+[node name="Env" type="Node2D" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Env"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Env/StaticBody2D"]
+position = Vector2(207, 55)
+shape = SubResource("WorldBoundaryShape2D_bl13t")

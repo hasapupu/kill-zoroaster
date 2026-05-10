@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="GameScene" load_steps=2 format=3 uid="uid://bikjiq8jtbcj4"]
+
+[ext_resource type="Script" uid="uid://dmqvuyew67l8q" path="res://scripts/game_scene.gd" id="1_3d158"]
+
+[resource]
+script = ExtResource("1_3d158")
+charas = {
+&"res://scenes/test_np_chara.tscn": Vector2(32, 32)
+}
+env_path = "res://scenes/test_env.tscn"
+player_path = "res://scenes/player_chara.tscn"
+player_pos = Vector2(0, 0)
+scene_type = 1
+rpg_vars = {
+"in_cutscene": false
+}
+rhythm_vars = {
+"blocked_tiles": [],
+"in_cutscene": false,
+"npc_area_tiles": {
+Vector2(32, 32): "res://scenes/test_npc_cuts.tscn"
+},
+"queued_cuts": null
+}
+metadata/_custom_type_script = "uid://dmqvuyew67l8q"

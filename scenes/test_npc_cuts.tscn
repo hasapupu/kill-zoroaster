@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://benpm2k5cy52"]
+
+[ext_resource type="Script" uid="uid://coi4h1ox0dqhh" path="res://scripts/test_npc_cuts.gd" id="1_revo3"]
+
+[node name="TestNPCCuts" type="Node"]
+script = ExtResource("1_revo3")
+metadata/_custom_type_script = "uid://coi4h1ox0dqhh"
