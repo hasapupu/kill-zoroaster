@@ -1,4 +1,4 @@
-class_name Chara extends Node2D
+class_name Chara extends CharacterBody2D
 signal rhythm_turn_done(dir:Vector2)
 
 @export var rpg_basesprite: Texture2D

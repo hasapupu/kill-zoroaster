@@ -1,5 +1,6 @@
 class_name Cutscene extends Node
 signal done
+var event_man : EventManager
 
 func wait_for_action(act):
 	while Input.is_action_just_pressed(act):

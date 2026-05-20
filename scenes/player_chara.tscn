@@ -6,20 +6,23 @@
 size = Vector2(32, 64)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4y2fg"]
-size = Vector2(28, 10)
+size = Vector2(32, 13)
 
-[node name="Node2D" type="Node2D"]
+[node name="Node2D" type="CharacterBody2D" groups=["player_body"]]
 y_sort_enabled = true
 script = ExtResource("1_4y2fg")
+metadata/_custom_type_script = "uid://16on1u4n306e"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 y_sort_enabled = true
 position = Vector2(0, -24)
 texture = SubResource("PlaceholderTexture2D_4y2fg")
 
-[node name="StaticBody2D" type="CharacterBody2D" parent="." groups=["player_body"]]
-position = Vector2(0, -24)
+[node name="DashTimer" type="Timer" parent="."]
+one_shot = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(0, 24)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1.5)
 shape = SubResource("RectangleShape2D_4y2fg")
+
+[connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]

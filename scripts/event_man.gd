@@ -50,6 +50,7 @@ func play_cutscene_rpg(curr_cut_path:String):
 	var curr_cut:Cutscene = cut_res.instantiate()
 	add_child(curr_cut)
 	rpg_vars["in_cutscene"] = true
+	curr_cut.event_man = self
 	curr_cut.setup_vars()
 	curr_cut.do_cutscene()
 	await curr_cut.done
@@ -87,7 +88,7 @@ func rhythm_process():
 							tween.tween_property(i,"global_position",dir,.3)
 							await tween.finished
 						
-					await get_tree().create_timer(.2).timeout
+					#await get_tree().create_timer(.2).timeout
 			await  get_tree().process_frame
 			rhythm_process()
 	

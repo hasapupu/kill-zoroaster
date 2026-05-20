@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_3d158")
 charas = {
-&"res://scenes/test_np_chara.tscn": Vector2(32, 32)
+&"res://scenes/test_np_chara.tscn": Vector2(-208, -5)
 }
 env_path = "res://scenes/test_env.tscn"
 player_path = "res://scenes/player_chara.tscn"

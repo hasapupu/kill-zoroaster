@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://dwefrfl6vnfe6"]
+
+[ext_resource type="Script" uid="uid://bevbyosvpy1br" path="res://scripts/area_loader_chara.gd" id="1_i57r4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lbaeb"]
+size = Vector2(55, 26)
+
+[node name="Node2D" type="CharacterBody2D"]
+y_sort_enabled = true
+script = ExtResource("1_i57r4")
+my_cuts_path = "res://scenes/test_npc_cuts.tscn"
+metadata/_custom_type_script = "uid://bevbyosvpy1br"
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_lbaeb")

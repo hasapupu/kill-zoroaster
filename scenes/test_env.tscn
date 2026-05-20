@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://bgfvtn0ip4h6p"]
+[gd_scene load_steps=7 format=3 uid="uid://bgfvtn0ip4h6p"]
 
 [sub_resource type="Gradient" id="Gradient_kxc0q"]
 offsets = PackedFloat32Array(0)
@@ -9,6 +9,42 @@ gradient = SubResource("Gradient_kxc0q")
 width = 480
 height = 320
 
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_kxc0q"]
+distance = -161.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_yl55h"]
+normal = Vector2(0, 1)
+distance = -160.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_kyn1l"]
+normal = Vector2(1, 0)
+distance = -242.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_po6i2"]
+normal = Vector2(-1, 0)
+distance = -241.0
+
 [node name="Sprite2D" type="Sprite2D"]
 z_index = -999
 texture = SubResource("GradientTexture2D_yl55h")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("WorldBoundaryShape2D_kxc0q")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(0, -2)
+shape = SubResource("WorldBoundaryShape2D_yl55h")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
+shape = SubResource("WorldBoundaryShape2D_kyn1l")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
+shape = SubResource("WorldBoundaryShape2D_po6i2")
