@@ -1,30 +1,51 @@
-[gd_scene load_steps=7 format=3 uid="uid://bu7pvkiv3rhsl"]
+[gd_scene load_steps=8 format=3 uid="uid://bu7pvkiv3rhsl"]
 
 [ext_resource type="Script" uid="uid://cq7uk4ohee4mh" path="res://scripts/event_man.gd" id="1_errlg"]
 [ext_resource type="Resource" uid="uid://bikjiq8jtbcj4" path="res://game_scenes/test_scene.tres" id="2_74lek"]
-[ext_resource type="PackedScene" uid="uid://dtuty8iwh0k1a" path="res://scenes/player_chara.tscn" id="2_bl13t"]
-[ext_resource type="PackedScene" uid="uid://taukw46d7qu3" path="res://scenes/test_np_chara.tscn" id="3_iyx0m"]
-[ext_resource type="PackedScene" uid="uid://bgfvtn0ip4h6p" path="res://scenes/test_env.tscn" id="4_74lek"]
-[ext_resource type="PackedScene" uid="uid://dwefrfl6vnfe6" path="res://scenes/loader_chara.tscn" id="4_j5jx5"]
+[ext_resource type="Script" path="res://addons/camera_shake.gd" id="3_at5dv"]
+[ext_resource type="Script" uid="uid://chqvwanuangjd" path="res://addons/AudioBySymbol/Code/Audio/audio_file.gd" id="3_jcd4p"]
+[ext_resource type="AudioStream" uid="uid://37tqjdold66b" path="res://audio/music/encounter!.wav" id="3_uacia"]
+[ext_resource type="PackedScene" uid="uid://b41jwv56h6xjt" path="res://scenes/main_menu.tscn" id="6_lpvoh"]
+
+[sub_resource type="Resource" id="Resource_uacia"]
+script = ExtResource("3_jcd4p")
+id = "1"
+files = Array[AudioStream]([ExtResource("3_uacia")])
+volume_db = -10.0
+min_pitch_scale = 1.0
+max_pitch_scale = 1.0
+is_music = true
+always_play = false
+is_unique = false
+metadata/_custom_type_script = "uid://chqvwanuangjd"
 
 [node name="EventMan" type="Node2D"]
 script = ExtResource("1_errlg")
 default_scene = ExtResource("2_74lek")
+default_music = SubResource("Resource_uacia")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="CameraShake" type="Node" parent="Camera2D"]
+script = ExtResource("3_at5dv")
 
 [node name="YSort" type="Node2D" parent="."]
 y_sort_enabled = true
 
-[node name="Node2D" parent="YSort" instance=ExtResource("2_bl13t")]
-
-[node name="Node2D2" parent="YSort" instance=ExtResource("4_j5jx5")]
-position = Vector2(1, -147)
-my_game_scene = ExtResource("2_74lek")
-
-[node name="Node2D3" parent="YSort" instance=ExtResource("3_iyx0m")]
-position = Vector2(-208, -5)
-
 [node name="Env" type="Node2D" parent="."]
 
-[node name="Sprite2D" parent="Env" instance=ExtResource("4_74lek")]
+[node name="Control" type="Control" parent="Env"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -320.0
+offset_top = -240.0
+offset_right = 320.0
+offset_bottom = 240.0
+
+[node name="Control" parent="Env/Control" instance=ExtResource("6_lpvoh")]
+layout_mode = 1
+
+[connection signal="button_down" from="Env/Control/Control/Button" to="." method="load_default_scene"]
+[connection signal="button_down" from="Env/Control/Control/Button2" to="." method="quit"]
+
+[editable path="Env/Control/Control"]

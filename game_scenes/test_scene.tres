@@ -1,6 +1,20 @@
-[gd_resource type="Resource" script_class="GameScene" load_steps=2 format=3 uid="uid://bikjiq8jtbcj4"]
+[gd_resource type="Resource" script_class="GameScene" load_steps=5 format=3 uid="uid://bikjiq8jtbcj4"]
 
 [ext_resource type="Script" uid="uid://dmqvuyew67l8q" path="res://scripts/game_scene.gd" id="1_3d158"]
+[ext_resource type="AudioStream" uid="uid://37tqjdold66b" path="res://audio/music/encounter!.wav" id="1_o0f6f"]
+[ext_resource type="Script" uid="uid://chqvwanuangjd" path="res://addons/AudioBySymbol/Code/Audio/audio_file.gd" id="2_fsd3h"]
+
+[sub_resource type="Resource" id="Resource_4i4ow"]
+script = ExtResource("2_fsd3h")
+id = "1"
+files = Array[AudioStream]([ExtResource("1_o0f6f")])
+volume_db = -10.0
+min_pitch_scale = 1.0
+max_pitch_scale = 1.0
+is_music = true
+always_play = false
+is_unique = false
+metadata/_custom_type_script = "uid://chqvwanuangjd"
 
 [resource]
 script = ExtResource("1_3d158")
@@ -10,7 +24,7 @@ charas = {
 env_path = "res://scenes/test_env.tscn"
 player_path = "res://scenes/player_chara.tscn"
 player_pos = Vector2(0, 0)
-scene_type = 1
+scene_type = 0
 rpg_vars = {
 "in_cutscene": false
 }
@@ -22,4 +36,5 @@ Vector2(32, 32): "res://scenes/test_npc_cuts.tscn"
 },
 "queued_cuts": null
 }
+room_music = SubResource("Resource_4i4ow")
 metadata/_custom_type_script = "uid://dmqvuyew67l8q"

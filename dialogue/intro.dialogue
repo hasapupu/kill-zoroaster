@@ -1,0 +1,34 @@
+~ start
+set buffer = ""
+set gloob = true
+???: Ah, the surface.
+???: A mirror like limbo between the depths and the sky.
+???: Now and then, a wave rises out of the depths, only to inevitably crash back.
+???: I'd like to imagine each of them has a name.
+???: A hundred billion names of the ocean.
+
+while gloob == true:
+	???: What is his name?
+	- Finish
+		gloob = false
+	- A
+		buffer += "a"
+	- B
+		buffer += "b"
+	- C
+		buffer += "c"
+	- D
+		buffer += "d"
+	- E
+		buffer += "e"
+		
+#insert name input
+if buffer == "zoroaster ":
+	???:Ahahahaha
+	???:The snake truly eats itself.
+	???:But why shouldn't it be possible?
+	???:Why shouldn't he be reborn?
+???: Many years later.
+???: Or earlier.
+???: It does not really matter.
+=> END

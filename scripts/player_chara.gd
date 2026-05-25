@@ -10,6 +10,14 @@ var hp = 100
 var dash_start_pos:= Vector2.ZERO
 var dash_time:= .1
 @onready var dash_timer:Timer = get_node("DashTimer")
+var cs_node:CameraShake
+var damageable := true
+@onready var inv_timer:Timer = get_node("InvTimer")
+@onready var inv_shader:Shader = preload("res://scripts/shaders/blinking.gdshader")
+@onready var def_shader:= Shader.new()
+@onready var sprite:Sprite2D = get_node("Sprite2D")
+@export var hit_sfx:AudioFile
+@export var dash_sfx:AudioFile
 func _init() -> void:
 	has_rhythm_process = true
 
@@ -27,6 +35,7 @@ func chara_process_rpg():
 		dash_start_pos = global_position
 		dash_timer.wait_time = dash_time
 		dash_timer.start()
+		Audio.play_audio(dash_sfx)
 		return
 	dir *= trav_distance
 	velocity = dir
@@ -44,3 +53,23 @@ func chara_process_rhythm():
 
 func _on_dash_timer_timeout() -> void:
 	dashing = false
+
+
+func emit_hit(damage_amount):
+	if damageable:
+		hp -= damage_amount
+		damageable = false
+		var shmat = ShaderMaterial.new()
+		shmat.shader = inv_shader
+		sprite.material = shmat
+		Audio.play_audio(hit_sfx)
+		inv_timer.start()
+		been_hit.emit()
+	
+
+
+func _on_inv_timer_timeout() -> void:
+	damageable = true
+	var shmat = ShaderMaterial.new()
+	shmat.shader = def_shader
+	sprite.material = shmat

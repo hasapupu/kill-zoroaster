@@ -1,4 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://bgfvtn0ip4h6p"]
+[gd_scene load_steps=9 format=3 uid="uid://bgfvtn0ip4h6p"]
+
+[ext_resource type="Script" uid="uid://mrtcqtu60npu" path="res://scripts/hitbox.gd" id="1_yl55h"]
 
 [sub_resource type="Gradient" id="Gradient_kxc0q"]
 offsets = PackedFloat32Array(0)
@@ -24,6 +26,8 @@ distance = -242.0
 normal = Vector2(-1, 0)
 distance = -241.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yl55h"]
+
 [node name="Sprite2D" type="Sprite2D"]
 z_index = -999
 texture = SubResource("GradientTexture2D_yl55h")
@@ -48,3 +52,15 @@ shape = SubResource("WorldBoundaryShape2D_kyn1l")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
 shape = SubResource("WorldBoundaryShape2D_po6i2")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_yl55h")
+damage = 5
+metadata/_custom_type_script = "uid://mrtcqtu60npu"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(60, -83)
+shape = SubResource("RectangleShape2D_yl55h")
+debug_color = Color(1, 0.00795276, 0.0457771, 0.42)

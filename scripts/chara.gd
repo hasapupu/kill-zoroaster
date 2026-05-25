@@ -1,5 +1,6 @@
 class_name Chara extends CharacterBody2D
 signal rhythm_turn_done(dir:Vector2)
+signal been_hit
 
 @export var rpg_basesprite: Texture2D
 @export var rhythm_basesprite: Texture2D

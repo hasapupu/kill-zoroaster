@@ -1,6 +1,36 @@
-[gd_scene load_steps=4 format=3 uid="uid://dtuty8iwh0k1a"]
+[gd_scene load_steps=12 format=3 uid="uid://dtuty8iwh0k1a"]
 
 [ext_resource type="Script" uid="uid://16on1u4n306e" path="res://scripts/player_chara.gd" id="1_4y2fg"]
+[ext_resource type="AudioStream" uid="uid://daxes67fmsv86" path="res://audio/sfx/player_hit.wav" id="2_q6ocy"]
+[ext_resource type="Script" uid="uid://boa8hkasqj3rj" path="res://scripts/hurtbox.gd" id="2_qav8p"]
+[ext_resource type="Script" uid="uid://chqvwanuangjd" path="res://addons/AudioBySymbol/Code/Audio/audio_file.gd" id="3_meulb"]
+[ext_resource type="AudioStream" uid="uid://bfkk32gr1jsv7" path="res://audio/sfx/dash.wav" id="4_em1u0"]
+
+[sub_resource type="Resource" id="Resource_u4q2l"]
+script = ExtResource("3_meulb")
+id = ""
+files = Array[AudioStream]([ExtResource("2_q6ocy")])
+volume_db = 10.0
+min_pitch_scale = 1.0
+max_pitch_scale = 1.0
+is_music = false
+always_play = false
+is_unique = false
+metadata/_custom_type_script = "uid://chqvwanuangjd"
+
+[sub_resource type="Resource" id="Resource_xxf5f"]
+script = ExtResource("3_meulb")
+id = ""
+files = Array[AudioStream]([ExtResource("4_em1u0")])
+volume_db = 10.0
+min_pitch_scale = 1.0
+max_pitch_scale = 1.0
+is_music = false
+always_play = false
+is_unique = false
+metadata/_custom_type_script = "uid://chqvwanuangjd"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_off6v"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_4y2fg"]
 size = Vector2(32, 64)
@@ -8,13 +38,19 @@ size = Vector2(32, 64)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4y2fg"]
 size = Vector2(32, 13)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qav8p"]
+size = Vector2(8, 8)
+
 [node name="Node2D" type="CharacterBody2D" groups=["player_body"]]
 y_sort_enabled = true
 script = ExtResource("1_4y2fg")
+hit_sfx = SubResource("Resource_u4q2l")
+dash_sfx = SubResource("Resource_xxf5f")
 metadata/_custom_type_script = "uid://16on1u4n306e"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 y_sort_enabled = true
+material = SubResource("ShaderMaterial_off6v")
 position = Vector2(0, -24)
 texture = SubResource("PlaceholderTexture2D_4y2fg")
 
@@ -25,4 +61,23 @@ one_shot = true
 position = Vector2(0, 1.5)
 shape = SubResource("RectangleShape2D_4y2fg")
 
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("2_qav8p")
+is_players = true
+metadata/_custom_type_script = "uid://boa8hkasqj3rj"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_qav8p")
+debug_color = Color(0, 0.646016, 0.24706, 0.42)
+
+[node name="InvTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
 [connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]
+[connection signal="area_entered" from="Hurtbox" to="Hurtbox" method="emit_hit"]
+[connection signal="been_hit" from="Hurtbox" to="." method="emit_hit"]
+[connection signal="timeout" from="InvTimer" to="." method="_on_inv_timer_timeout"]

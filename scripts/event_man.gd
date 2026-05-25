@@ -7,15 +7,22 @@ var curr_game_type: game_type = game_type.RHYTHM
 @onready var cam = get_node("Camera2D")
 @onready var y_sort_parent = get_node("YSort")
 @export var default_scene:GameScene
+@export var default_music :AudioFile
+@onready var music := Audio.play_audio(default_music)
 
 var rpg_vars = {"in_cutscene":false}
 var rhythm_vars = {"blocked_tiles":[],"npc_area_tiles":{Vector2(32,32):"res://scenes/test_npc_cuts.tscn"},"queued_cuts": null,"in_cutscene":false}
 
-#deb
-func _ready() -> void:
+
+func load_default_scene():
 	load_new_scene(default_scene)
-	rhythm_process()
-#deb end
+
+func quit():
+	get_tree().quit()
+
+func apply_cs():
+	get_node("Camera2D/CameraShake").add_trauma(2)
+	print("aaaaaaaaaaahhhhhhhhhhhhhhhhhhhhhh")
 
 func load_new_scene(scene_to_load : GameScene):
 	for i in y_sort_parent.get_children():
@@ -23,7 +30,7 @@ func load_new_scene(scene_to_load : GameScene):
 	for i in env.get_children():
 		i.queue_free()
 	curr_charas.clear()
-	
+	Audio.play_audio(scene_to_load.room_music)
 	for i in scene_to_load.rhythm_vars.keys():
 		rhythm_vars[i] = scene_to_load.rhythm_vars[i]
 	for i in scene_to_load.rpg_vars.keys():
@@ -42,7 +49,10 @@ func load_new_scene(scene_to_load : GameScene):
 	var new_playa = load(scene_to_load.player_path).instantiate()
 	new_playa.global_position = scene_to_load.player_pos
 	y_sort_parent.add_child(new_playa)
+	new_playa.been_hit.connect(apply_cs)
 	curr_charas.append(new_playa)
+	if scene_to_load.room_music.id != music.audio_file.id:
+		music = Audio.play_audio(scene_to_load.room_music)
 	curr_game_type = scene_to_load.scene_type
 
 func play_cutscene_rpg(curr_cut_path:String):
