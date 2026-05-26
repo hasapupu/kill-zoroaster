@@ -8,3 +8,4 @@ class_name GameScene extends Resource
 @export var rpg_vars : Dictionary = {"in_cutscene":false}
 @export var rhythm_vars : Dictionary = {"blocked_tiles":[],"npc_area_tiles":{Vector2(32,32):"res://scenes/test_npc_cuts.tscn"},"queued_cuts": null,"in_cutscene":false}
 @export var room_music : AudioFile
+@export var is_empty_savefile := true

@@ -1,6 +1,44 @@
-[gd_scene load_steps=2 format=3 uid="uid://b41jwv56h6xjt"]
+[gd_scene load_steps=12 format=3 uid="uid://b41jwv56h6xjt"]
 
+[ext_resource type="Shader" uid="uid://c0sj6w7olbhnw" path="res://scripts/shaders/water.gdshader" id="1_ekxnf"]
 [ext_resource type="Texture2D" uid="uid://c7wc72r757u8u" path="res://sprites/wave.jpg" id="1_l6cm7"]
+
+[sub_resource type="Gradient" id="Gradient_ekxnf"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_bqqt6"]
+fractal_octaves = 1
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_wu84c"]
+seamless = true
+color_ramp = SubResource("Gradient_ekxnf")
+noise = SubResource("FastNoiseLite_bqqt6")
+
+[sub_resource type="Gradient" id="Gradient_8ln24"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_rtw2f"]
+fractal_octaves = 1
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_oa1go"]
+seamless = true
+color_ramp = SubResource("Gradient_8ln24")
+noise = SubResource("FastNoiseLite_rtw2f")
+
+[sub_resource type="Gradient" id="Gradient_bqqt6"]
+colors = PackedColorArray(0, 0, 0, 1, 0.677274, 0.689208, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_wu84c"]
+gradient = SubResource("Gradient_bqqt6")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bqqt6"]
+shader = ExtResource("1_ekxnf")
+shader_parameter/pixelation = Vector2(1000, 1000)
+shader_parameter/cloud_noise1 = SubResource("NoiseTexture2D_wu84c")
+shader_parameter/scroll_speed1 = Vector2(0.1, 0.1)
+shader_parameter/cloud_noise2 = SubResource("NoiseTexture2D_oa1go")
+shader_parameter/scroll_speed2 = Vector2(-0.05, -0.004)
+shader_parameter/center_pos = Vector2(0, 0)
+shader_parameter/position_impact = 0.35
+shader_parameter/color_gardient = SubResource("GradientTexture1D_wu84c")
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -11,6 +49,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
+material = SubResource("ShaderMaterial_bqqt6")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -27,10 +66,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -54.0
-offset_top = -28.0
-offset_right = 54.0
-offset_bottom = 28.0
+offset_left = -50.0
+offset_top = 83.0
+offset_right = 58.0
+offset_bottom = 139.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Continue"

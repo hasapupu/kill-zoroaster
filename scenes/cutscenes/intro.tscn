@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ch1b3prid8510"]
+
+[ext_resource type="Script" uid="uid://clgfhvubbicpq" path="res://scripts/cutscenes/intro_cutscene.gd" id="1_imtbi"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_imtbi")

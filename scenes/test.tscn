@@ -23,6 +23,7 @@ metadata/_custom_type_script = "uid://chqvwanuangjd"
 script = ExtResource("1_errlg")
 default_scene = ExtResource("2_74lek")
 default_music = SubResource("Resource_uacia")
+intro_cuts_path = "res://scenes/cutscenes/intro.tscn"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 

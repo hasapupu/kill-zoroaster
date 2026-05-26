@@ -9,12 +9,16 @@ var curr_game_type: game_type = game_type.RHYTHM
 @export var default_scene:GameScene
 @export var default_music :AudioFile
 @onready var music := Audio.play_audio(default_music)
+@export var intro_cuts_path: String
+
 
 var rpg_vars = {"in_cutscene":false}
 var rhythm_vars = {"blocked_tiles":[],"npc_area_tiles":{Vector2(32,32):"res://scenes/test_npc_cuts.tscn"},"queued_cuts": null,"in_cutscene":false}
 
 
 func load_default_scene():
+	if default_scene.is_empty_savefile:
+		await play_cutscene_rpg(intro_cuts_path)
 	load_new_scene(default_scene)
 
 func quit():

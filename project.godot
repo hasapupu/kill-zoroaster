@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 Audio="*res://addons/AudioBySymbol/Code/Autoloads/audio_autoload.gd"
+GameState="*res://scripts/game_state.gd"
 
 [display]
 
