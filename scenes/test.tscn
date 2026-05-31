@@ -1,16 +1,17 @@
-[gd_scene load_steps=8 format=3 uid="uid://bu7pvkiv3rhsl"]
+[gd_scene load_steps=9 format=3 uid="uid://bu7pvkiv3rhsl"]
 
 [ext_resource type="Script" uid="uid://cq7uk4ohee4mh" path="res://scripts/event_man.gd" id="1_errlg"]
 [ext_resource type="Resource" uid="uid://bikjiq8jtbcj4" path="res://game_scenes/test_scene.tres" id="2_74lek"]
 [ext_resource type="Script" path="res://addons/camera_shake.gd" id="3_at5dv"]
 [ext_resource type="Script" uid="uid://chqvwanuangjd" path="res://addons/AudioBySymbol/Code/Audio/audio_file.gd" id="3_jcd4p"]
-[ext_resource type="AudioStream" uid="uid://37tqjdold66b" path="res://audio/music/encounter!.wav" id="3_uacia"]
+[ext_resource type="AudioStream" uid="uid://b134ptanwiwgt" path="res://audio/music/menu.wav" id="3_lpvoh"]
 [ext_resource type="PackedScene" uid="uid://b41jwv56h6xjt" path="res://scenes/main_menu.tscn" id="6_lpvoh"]
+[ext_resource type="Script" uid="uid://1pqydag5xh4u" path="res://scripts/mm_cont_butt.gd" id="7_at5dv"]
 
 [sub_resource type="Resource" id="Resource_uacia"]
 script = ExtResource("3_jcd4p")
-id = "1"
-files = Array[AudioStream]([ExtResource("3_uacia")])
+id = "0"
+files = Array[AudioStream]([ExtResource("3_lpvoh")])
 volume_db = -10.0
 min_pitch_scale = 1.0
 max_pitch_scale = 1.0
@@ -45,6 +46,9 @@ offset_bottom = 240.0
 
 [node name="Control" parent="Env/Control" instance=ExtResource("6_lpvoh")]
 layout_mode = 1
+
+[node name="Button" parent="Env/Control/Control" index="1"]
+script = ExtResource("7_at5dv")
 
 [connection signal="button_down" from="Env/Control/Control/Button" to="." method="load_default_scene"]
 [connection signal="button_down" from="Env/Control/Control/Button2" to="." method="quit"]

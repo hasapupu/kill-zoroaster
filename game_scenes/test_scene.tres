@@ -37,4 +37,5 @@ Vector2(32, 32): "res://scenes/test_npc_cuts.tscn"
 "queued_cuts": null
 }
 room_music = SubResource("Resource_4i4ow")
+is_empty_savefile = true
 metadata/_custom_type_script = "uid://dmqvuyew67l8q"

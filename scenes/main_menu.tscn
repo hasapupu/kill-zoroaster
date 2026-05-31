@@ -1,7 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://b41jwv56h6xjt"]
+[gd_scene load_steps=13 format=3 uid="uid://b41jwv56h6xjt"]
 
 [ext_resource type="Shader" uid="uid://c0sj6w7olbhnw" path="res://scripts/shaders/water.gdshader" id="1_ekxnf"]
 [ext_resource type="Texture2D" uid="uid://c7wc72r757u8u" path="res://sprites/wave.jpg" id="1_l6cm7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ekxnf"]
 
 [sub_resource type="Gradient" id="Gradient_ekxnf"]
 
@@ -33,7 +35,7 @@ gradient = SubResource("Gradient_bqqt6")
 shader = ExtResource("1_ekxnf")
 shader_parameter/pixelation = Vector2(1000, 1000)
 shader_parameter/cloud_noise1 = SubResource("NoiseTexture2D_wu84c")
-shader_parameter/scroll_speed1 = Vector2(0.1, 0.1)
+shader_parameter/scroll_speed1 = Vector2(0.05, 0.05)
 shader_parameter/cloud_noise2 = SubResource("NoiseTexture2D_oa1go")
 shader_parameter/scroll_speed2 = Vector2(-0.05, -0.004)
 shader_parameter/center_pos = Vector2(0, 0)
@@ -41,6 +43,7 @@ shader_parameter/position_impact = 0.35
 shader_parameter/color_gardient = SubResource("GradientTexture1D_wu84c")
 
 [node name="Control" type="Control"]
+material = SubResource("ShaderMaterial_ekxnf")
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
