@@ -48,7 +48,17 @@ offset_bottom = 240.0
 layout_mode = 1
 
 [node name="Button" parent="Env/Control/Control" index="1"]
+offset_left = -54.0
+offset_top = 57.0
+offset_right = 54.0
+offset_bottom = 113.0
 script = ExtResource("7_at5dv")
+
+[node name="Button2" parent="Env/Control/Control" index="2"]
+offset_left = -36.28
+offset_top = 151.0
+offset_right = 33.72
+offset_bottom = 206.0
 
 [connection signal="button_down" from="Env/Control/Control/Button" to="." method="load_default_scene"]
 [connection signal="button_down" from="Env/Control/Control/Button2" to="." method="quit"]

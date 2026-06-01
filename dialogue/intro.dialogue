@@ -1,13 +1,13 @@
 ~ start
-???: Ah, the surface.
-???: A mirror like limbo between the depths and the sky.
-???: Now and then, a wave rises out of the depths, only to inevitably crash back.
-???: I'd like to imagine each of them has a name.
-???: A hundred billion names of the ocean.
+ Ah, the surface.
+ A mirror like limbo between the depths and the sky.
+ Now and then, a wave rises out of the depths, only to inevitably crash back.
+ I'd like to imagine each of them has a name.
+ A hundred billion names of the ocean.
 
 while GameState.gloob == true:
 	~ abcdef
-	???: What is his name? ({{GameState.buffer}})
+	 What is his name? ({{GameState.buffer}})
 	- Finish
 		set GameState.gloob = false
 	- A
@@ -24,7 +24,7 @@ while GameState.gloob == true:
 		set GameState.buffer += "f"
 	- =>
 		~ ghijk
-		???: What is his name? ({{GameState.buffer}})
+		 What is his name? ({{GameState.buffer}})
 		- <=
 			=> abcdef
 		- G
@@ -39,7 +39,7 @@ while GameState.gloob == true:
 			set GameState.buffer += "k"
 		- =>
 			~ lmnop
-			???: What is his name? ({{GameState.buffer}})
+			 What is his name? ({{GameState.buffer}})
 			- <=
 				=> ghijk
 			- L
@@ -54,7 +54,7 @@ while GameState.gloob == true:
 				set GameState.buffer += "p"
 			- =>
 				~ qrstu
-				???: What is his name? ({{GameState.buffer}})
+				 What is his name? ({{GameState.buffer}})
 				- <=
 					=> lmnop
 				- Q
@@ -68,7 +68,7 @@ while GameState.gloob == true:
 				- U
 					set GameState.buffer += "u"
 				- =>
-					???: What is his name? ({{GameState.buffer}})
+					 What is his name? ({{GameState.buffer}})
 					- <=
 						=> qrstu
 					- V
@@ -84,15 +84,15 @@ while GameState.gloob == true:
 		
 #insert name input
 if GameState.buffer == "zoroaster":
-	???:Ahahahaha!
-	???:The snake truly eats itself.
-	???:But why shouldn't it be possible?
-	???:Why shouldn't he be reborn?
-	???: So, his name is Zoroaster.
+	Ahahahaha!
+	The snake truly eats itself.
+	But why shouldn't it be possible?
+	Why shouldn't he be reborn?
+	 So, his name is Zoroaster.
 else:
-	???: One of them is {{GameState.buffer}}.
-	???: A more interesting one is Zoroaster.
-???: Many years later.
-???: Or earlier.
-???: It does not really matter.
+	 One of them is {{GameState.buffer}}.
+	 A more interesting one is Zoroaster.
+ Many years later.
+ Or earlier.
+ It does not really matter.
 => END

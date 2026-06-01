@@ -19,6 +19,7 @@ metadata/_custom_type_script = "uid://chqvwanuangjd"
 [resource]
 script = ExtResource("1_3d158")
 charas = {
+"res://scenes/save_chara.tscn": Vector2(208, -5),
 &"res://scenes/test_np_chara.tscn": Vector2(-208, -5)
 }
 env_path = "res://scenes/test_env.tscn"
