@@ -11,7 +11,9 @@ var curr_game_type: game_type = game_type.RHYTHM
 @onready var music := Audio.play_audio(default_music)
 @export var intro_cuts_path: String
 var is_savefile_empty := true
-
+@export var inventory : Array = ["res://item/test_item.tres"]
+@onready var inv_pref:PackedScene = preload("res://scenes/inventory.tscn")
+var inv_active := false
 
 var rpg_vars = {"in_cutscene":false}
 var rhythm_vars = {"blocked_tiles":[],"npc_area_tiles":{Vector2(32,32):"res://scenes/test_npc_cuts.tscn"},"queued_cuts": null,"in_cutscene":false}
@@ -23,6 +25,7 @@ func _ready() -> void:
 		ResourceSaver.save(default_scene,"user://default.tres")
 		loaded_savefile = ResourceLoader.load("user://default.tres")
 	default_scene = loaded_savefile
+	inventory = loaded_savefile.inventory
 	print(default_scene)
 		
 
@@ -33,6 +36,7 @@ func save():
 	default_scene.rhythm_vars["in_cutscene"]=false
 	default_scene.scene_type = curr_game_type
 	default_scene.env_path = env.get_child(0).scene_file_path
+	default_scene.inventory = inventory
 	default_scene.charas.clear()
 	for i in curr_charas:
 		if i is not PlayerChara:
@@ -138,8 +142,48 @@ func rhythm_process():
 	
 
 func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("menu") and inv_active == false and rpg_vars["in_cutscene"] == false and rhythm_vars["in_cutscene"] == false:
+		show_inv()
+	if Input.is_action_just_pressed("quit") and inv_active and rpg_vars["in_cutscene"] == false and rhythm_vars["in_cutscene"] == false:
+		close_inv()
 	match curr_game_type:
 		game_type.RPG:
-			if rpg_vars["in_cutscene"] == false:
+			if rpg_vars["in_cutscene"] == false :
 				for i:Chara in curr_charas:
 					i.chara_process_rpg()
+					
+func show_inv():
+	inv_active = true
+	var inv_node = inv_pref.instantiate()
+	cam.add_child(inv_node)
+	rpg_vars["in_cutscene"] = true
+	rhythm_vars["in_cutscene"] = true
+	var il : ItemList = inv_node.get_child(0)
+	il.grab_focus()
+	for i in inventory:
+		var dasd = load(i) as Item
+		il.add_item(dasd.name)
+	if inventory.size() > 0:
+		il.select(0)
+	il.item_activated.connect(use_item)
+	
+
+func close_inv():
+	inv_active = false
+	cam.get_node("NinePatchRect").queue_free()
+	rpg_vars["in_cutscene"] = false
+	rhythm_vars["in_cutscene"] = false
+	
+func use_item(it_index:int):
+	var it = load(inventory[it_index])
+	for i in curr_charas:
+		if i is PlayerChara:
+			i.hp += it.heal_amount
+			break
+	if it.used_up:
+		inventory.remove_at(it_index)
+	if curr_game_type == game_type.RHYTHM:
+		await play_cutscene_rhythm(it.my_cuts_path)
+	else:
+		await play_cutscene_rpg(it.my_cuts_path)
+	close_inv()

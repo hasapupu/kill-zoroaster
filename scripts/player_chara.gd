@@ -18,6 +18,8 @@ var damageable := true
 @onready var sprite:Sprite2D = get_node("Sprite2D")
 @export var hit_sfx:AudioFile
 @export var dash_sfx:AudioFile
+var inventory:Array
+
 func _init() -> void:
 	has_rhythm_process = true
 

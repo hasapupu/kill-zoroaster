@@ -39,4 +39,5 @@ Vector2(32, 32): "res://scenes/test_npc_cuts.tscn"
 }
 room_music = SubResource("Resource_4i4ow")
 is_empty_savefile = true
+inventory = ["res://item/test_item.tres", "res://item/test_item.tres"]
 metadata/_custom_type_script = "uid://dmqvuyew67l8q"

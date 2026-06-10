@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Item" load_steps=2 format=3 uid="uid://uu7bqynfq7y2"]
+
+[ext_resource type="Script" uid="uid://cxf6smmdgcj8" path="res://scripts/item.gd" id="1_e1bds"]
+
+[resource]
+script = ExtResource("1_e1bds")
+name = "Test item"
+heal_amount = -1
+used_up = true
+my_cuts_path = "res://scenes/cutscenes/test_item_cuts.tscn"
+metadata/_custom_type_script = "uid://cxf6smmdgcj8"
