@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_e1bds")
 name = "Test item"
-heal_amount = -1
+heal_amount = -100
 used_up = true
 my_cuts_path = "res://scenes/cutscenes/test_item_cuts.tscn"
 metadata/_custom_type_script = "uid://cxf6smmdgcj8"

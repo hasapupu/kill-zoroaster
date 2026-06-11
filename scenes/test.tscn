@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://bu7pvkiv3rhsl"]
+[gd_scene load_steps=11 format=3 uid="uid://bu7pvkiv3rhsl"]
 
 [ext_resource type="Script" uid="uid://cq7uk4ohee4mh" path="res://scripts/event_man.gd" id="1_errlg"]
 [ext_resource type="Resource" uid="uid://bikjiq8jtbcj4" path="res://game_scenes/test_scene.tres" id="2_74lek"]
 [ext_resource type="Script" path="res://addons/camera_shake.gd" id="3_at5dv"]
 [ext_resource type="Script" uid="uid://chqvwanuangjd" path="res://addons/AudioBySymbol/Code/Audio/audio_file.gd" id="3_jcd4p"]
 [ext_resource type="AudioStream" uid="uid://b134ptanwiwgt" path="res://audio/music/menu.wav" id="3_lpvoh"]
+[ext_resource type="AudioStream" uid="uid://c5tsutot24cj3" path="res://audio/music/gameover.wav" id="5_jcd4p"]
 [ext_resource type="PackedScene" uid="uid://b41jwv56h6xjt" path="res://scenes/main_menu.tscn" id="6_lpvoh"]
 [ext_resource type="Script" uid="uid://1pqydag5xh4u" path="res://scripts/mm_cont_butt.gd" id="7_at5dv"]
 
@@ -20,10 +21,23 @@ always_play = false
 is_unique = false
 metadata/_custom_type_script = "uid://chqvwanuangjd"
 
+[sub_resource type="Resource" id="Resource_yk7ts"]
+script = ExtResource("3_jcd4p")
+id = "3"
+files = Array[AudioStream]([ExtResource("5_jcd4p")])
+volume_db = -10.0
+min_pitch_scale = 1.0
+max_pitch_scale = 1.0
+is_music = true
+always_play = false
+is_unique = false
+metadata/_custom_type_script = "uid://chqvwanuangjd"
+
 [node name="EventMan" type="Node2D"]
 script = ExtResource("1_errlg")
 default_scene = ExtResource("2_74lek")
 default_music = SubResource("Resource_uacia")
+game_over_music = SubResource("Resource_yk7ts")
 intro_cuts_path = "res://scenes/cutscenes/intro.tscn"
 
 [node name="Camera2D" type="Camera2D" parent="."]

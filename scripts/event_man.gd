@@ -8,12 +8,14 @@ var curr_game_type: game_type = game_type.RHYTHM
 @onready var y_sort_parent = get_node("YSort")
 @export var default_scene:GameScene
 @export var default_music :AudioFile
+@export var game_over_music:AudioFile
 @onready var music := Audio.play_audio(default_music)
 @export var intro_cuts_path: String
 var is_savefile_empty := true
 @export var inventory : Array = ["res://item/test_item.tres"]
 @onready var inv_pref:PackedScene = preload("res://scenes/inventory.tscn")
 var inv_active := false
+@onready var game_over_scene:PackedScene = preload("res://scenes/game_over.tscn")
 
 var rpg_vars = {"in_cutscene":false}
 var rhythm_vars = {"blocked_tiles":[],"npc_area_tiles":{Vector2(32,32):"res://scenes/test_npc_cuts.tscn"},"queued_cuts": null,"in_cutscene":false}
@@ -48,6 +50,8 @@ func save():
 	
 
 func load_default_scene():
+	if get_node("game_over"):
+		get_node("game_over").queue_free()
 	if is_savefile_empty:
 		await play_cutscene_rpg(intro_cuts_path)
 		pass
@@ -88,6 +92,7 @@ func load_new_scene(scene_to_load : GameScene):
 	new_playa.global_position = scene_to_load.player_pos
 	y_sort_parent.add_child(new_playa)
 	new_playa.been_hit.connect(apply_cs)
+	new_playa.died.connect(die)
 	curr_charas.append(new_playa)
 	if scene_to_load.room_music.id != music.audio_file.id:
 		music = Audio.play_audio(scene_to_load.room_music)
@@ -144,14 +149,15 @@ func rhythm_process():
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("menu") and inv_active == false and rpg_vars["in_cutscene"] == false and rhythm_vars["in_cutscene"] == false:
 		show_inv()
-	if Input.is_action_just_pressed("quit") and inv_active and rpg_vars["in_cutscene"] == false and rhythm_vars["in_cutscene"] == false:
+	if Input.is_action_just_pressed("quit") and inv_active:
 		close_inv()
 	match curr_game_type:
 		game_type.RPG:
-			if rpg_vars["in_cutscene"] == false :
+			if rpg_vars["in_cutscene"] == false:
 				for i:Chara in curr_charas:
 					i.chara_process_rpg()
-					
+
+
 func show_inv():
 	inv_active = true
 	var inv_node = inv_pref.instantiate()
@@ -187,3 +193,15 @@ func use_item(it_index:int):
 	else:
 		await play_cutscene_rpg(it.my_cuts_path)
 	close_inv()
+
+func die():
+	for i in y_sort_parent.get_children():
+		i.queue_free()
+	for i in env.get_children():
+		i.queue_free()
+	curr_charas.clear()
+	var go_instance = game_over_scene.instantiate()
+	add_child(go_instance)
+	go_instance.get_node("Button").button_down.connect(load_default_scene)
+	go_instance.get_node("Button2").button_down.connect(quit)
+	music = Audio.play_audio(game_over_music)

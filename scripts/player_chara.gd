@@ -19,6 +19,7 @@ var damageable := true
 @export var hit_sfx:AudioFile
 @export var dash_sfx:AudioFile
 var inventory:Array
+signal died
 
 func _init() -> void:
 	has_rhythm_process = true
@@ -50,12 +51,9 @@ func chara_process_rhythm():
 		await get_tree().process_frame
 		dir = Input.get_vector("left","right","up","down").normalized()
 	rhythm_turn_done.emit(global_position+(dir * 16))
-	
-
 
 func _on_dash_timer_timeout() -> void:
 	dashing = false
-
 
 func emit_hit(damage_amount):
 	if damageable:
@@ -67,11 +65,13 @@ func emit_hit(damage_amount):
 		Audio.play_audio(hit_sfx)
 		inv_timer.start()
 		been_hit.emit()
-	
-
 
 func _on_inv_timer_timeout() -> void:
 	damageable = true
 	var shmat = ShaderMaterial.new()
 	shmat.shader = def_shader
 	sprite.material = shmat
+
+func _process(delta: float) -> void:
+	if hp <= 0:
+		died.emit()
